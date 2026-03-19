@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: tandil-trails-db
+    environment:
+      POSTGRES_DB: tandil_trails
+      POSTGRES_USER: trails_user
+      POSTGRES_PASSWORD: trails_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
