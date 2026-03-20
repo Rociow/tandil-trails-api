@@ -19,7 +19,7 @@ CREATE TABLE usuarios (
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    rol VARCHAR(20) NOT NULL CHECK (rol IN ('admin', 'usuario')),
+    rol VARCHAR(20) NOT NULL CHECK (rol IN ('ROLE_USER', 'ROLE_ADMIN')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     avatar_url VARCHAR(255)
 );
