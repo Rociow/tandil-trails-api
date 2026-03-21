@@ -2,10 +2,8 @@ package tandil_trails.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 import tandil_trails.dto.AuthResponse;
 import tandil_trails.dto.LoginRequest;
 import tandil_trails.dto.RegisterRequest;
@@ -21,6 +19,7 @@ un token JWT utilizando el JwtService y lo devolverá al cliente para que lo use
 public class AuthController {
 
     private final AuthService authService;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
@@ -31,4 +30,5 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
+
 }
