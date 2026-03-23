@@ -1,5 +1,6 @@
 package tandil_trails.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +25,13 @@ public class ResenaController {
 
     @PostMapping
     public ResponseEntity<ResenaResponseDTO> crear(@PathVariable Long senderoId,
-                                                   @RequestBody ResenaRequestDTO dto) {
+                                                   @RequestBody @Valid ResenaRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(resenaService.crear(senderoId, dto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ResenaResponseDTO> actualizar(@PathVariable Long id,
-                                                        @RequestBody ResenaRequestDTO dto) {
+                                                        @RequestBody @Valid ResenaRequestDTO dto) {
         return ResponseEntity.ok(resenaService.actualizar(id, dto));
     }
 

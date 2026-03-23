@@ -1,5 +1,6 @@
 package tandil_trails.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class EstadoSenderoController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<EstadoSenderoResponseDTO> crear(@RequestBody EstadoSenderoRequestDTO dto) {
+    public ResponseEntity<EstadoSenderoResponseDTO> crear(@RequestBody @Valid EstadoSenderoRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(estadoSenderoService.crear(dto));
     }
 

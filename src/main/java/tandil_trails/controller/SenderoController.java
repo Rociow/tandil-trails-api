@@ -1,5 +1,6 @@
 package tandil_trails.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,13 +31,13 @@ public class SenderoController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<SenderoDetalleDTO> crear(@RequestBody SenderoRequestDTO dto) {
+    public ResponseEntity<SenderoDetalleDTO> crear(@RequestBody @Valid SenderoRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(senderoService.crear(dto));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<SenderoDetalleDTO> actualizar(@PathVariable Long id, @RequestBody SenderoRequestDTO dto) {
+    public ResponseEntity<SenderoDetalleDTO> actualizar(@PathVariable Long id, @RequestBody @Valid SenderoRequestDTO dto) {
         return ResponseEntity.ok(senderoService.actualizar(id, dto));
     }
 

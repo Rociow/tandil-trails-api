@@ -1,5 +1,6 @@
 package tandil_trails.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +27,14 @@ public class WaypointController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<WaypointResponseDTO> crear(@PathVariable Long senderoId,
-                                                     @RequestBody WaypointRequestDTO dto) {
+                                                     @RequestBody @Valid WaypointRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(waypointService.crear(senderoId, dto));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<WaypointResponseDTO> actualizar(@PathVariable Long id,
-                                                          @RequestBody WaypointRequestDTO dto) {
+                                                          @RequestBody @Valid WaypointRequestDTO dto) {
         return ResponseEntity.ok(waypointService.actualizar(id, dto));
     }
 
