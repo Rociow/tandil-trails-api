@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import tandil_trails.dto.AuthResponse;
-import tandil_trails.dto.LoginRequest;
-import tandil_trails.dto.RegisterRequest;
+import tandil_trails.dto.auth.AuthResponse;
+import tandil_trails.dto.auth.LoginRequest;
+import tandil_trails.dto.auth.RegisterRequest;
 import tandil_trails.service.AuthService;
 
 /*Este controller se encargará de manejar las solicitudes de autenticación, como el registro de nuevos usuarios

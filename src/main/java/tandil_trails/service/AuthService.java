@@ -1,14 +1,13 @@
 package tandil_trails.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tandil_trails.domain.Usuario;
-import tandil_trails.dto.AuthResponse;
-import tandil_trails.dto.LoginRequest;
-import tandil_trails.dto.RegisterRequest;
+import tandil_trails.dto.auth.AuthResponse;
+import tandil_trails.dto.auth.LoginRequest;
+import tandil_trails.dto.auth.RegisterRequest;
 import tandil_trails.repository.UsuarioRepository;
 import tandil_trails.security.JwtService;
 

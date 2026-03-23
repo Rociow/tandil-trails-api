@@ -1,4 +1,4 @@
-package tandil_trails.dto;
+package tandil_trails.dto.waypoint;
 
 public record WaypointResponseDTO(
         Long id,

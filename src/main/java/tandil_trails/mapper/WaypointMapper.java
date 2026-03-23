@@ -8,8 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import tandil_trails.domain.Waypoint;
-import tandil_trails.dto.WaypointRequestDTO;
-import tandil_trails.dto.WaypointResponseDTO;
+import tandil_trails.dto.waypoint.WaypointRequestDTO;
+import tandil_trails.dto.waypoint.WaypointResponseDTO;
 
 @Mapper(componentModel = "spring")
 public interface WaypointMapper {

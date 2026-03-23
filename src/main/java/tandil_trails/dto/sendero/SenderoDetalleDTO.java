@@ -1,6 +1,8 @@
-package tandil_trails.dto;
+package tandil_trails.dto.sendero;
 
 import tandil_trails.domain.Dificultad;
+import tandil_trails.dto.ImagenSenderoDTO;
+import tandil_trails.dto.waypoint.WaypointResponseDTO;
 
 import java.util.List;
 

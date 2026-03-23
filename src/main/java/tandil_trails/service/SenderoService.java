@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tandil_trails.domain.EstadoSendero;
 import tandil_trails.domain.Sendero;
-import tandil_trails.dto.SenderoDetalleDTO;
-import tandil_trails.dto.SenderoRequestDTO;
-import tandil_trails.dto.SenderoResumenDTO;
+import tandil_trails.dto.sendero.SenderoDetalleDTO;
+import tandil_trails.dto.sendero.SenderoRequestDTO;
+import tandil_trails.dto.sendero.SenderoResumenDTO;
 import tandil_trails.exception.EstadoSenderoNotFoundException;
 import tandil_trails.exception.SenderoNotFoundException;
 import tandil_trails.mapper.SenderoMapper;
@@ -15,7 +15,6 @@ import tandil_trails.repository.EstadoSenderoRepository;
 import tandil_trails.repository.SenderoRepository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

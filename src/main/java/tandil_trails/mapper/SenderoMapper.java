@@ -9,9 +9,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import tandil_trails.domain.Resena;
 import tandil_trails.domain.Sendero;
-import tandil_trails.dto.SenderoDetalleDTO;
-import tandil_trails.dto.SenderoRequestDTO;
-import tandil_trails.dto.SenderoResumenDTO;
+import tandil_trails.dto.sendero.SenderoDetalleDTO;
+import tandil_trails.dto.sendero.SenderoRequestDTO;
+import tandil_trails.dto.sendero.SenderoResumenDTO;
 
 import java.util.Arrays;
 import java.util.List;

@@ -33,4 +33,24 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleWaypointNotFound(WaypointNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
+    @ExceptionHandler(ResenaYaExisteException.class)
+    public ResponseEntity<String> handleResenaYaExiste(ResenaYaExisteException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(ResenaNotFoundException.class)
+    public ResponseEntity<String> handleResenaNotFound(ResenaNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(AccesoNoAutorizadoException.class)
+    public ResponseEntity<String> handleAccesoNoAutorizado(AccesoNoAutorizadoException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(UsuarioNotFoundException.class)
+    public ResponseEntity<String> handleUsuarioNotFound(UsuarioNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }

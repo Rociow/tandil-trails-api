@@ -5,9 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import tandil_trails.dto.SenderoDetalleDTO;
-import tandil_trails.dto.SenderoRequestDTO;
-import tandil_trails.dto.SenderoResumenDTO;
+import tandil_trails.dto.sendero.SenderoDetalleDTO;
+import tandil_trails.dto.sendero.SenderoRequestDTO;
+import tandil_trails.dto.sendero.SenderoResumenDTO;
 import tandil_trails.service.SenderoService;
 
 import java.util.List;

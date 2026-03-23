@@ -1,4 +1,4 @@
-package tandil_trails.dto;
+package tandil_trails.dto.sendero;
 
 import tandil_trails.domain.Dificultad;
 
