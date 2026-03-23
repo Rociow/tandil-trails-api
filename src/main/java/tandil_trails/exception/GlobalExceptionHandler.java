@@ -53,4 +53,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleUsuarioNotFound(UsuarioNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
+    @ExceptionHandler(ImagenSenderoNotFoundException.class)
+    public ResponseEntity<String> handleImagenNotFound(ImagenSenderoNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }

@@ -1,7 +1,7 @@
 package tandil_trails.dto.sendero;
 
 import tandil_trails.domain.Dificultad;
-import tandil_trails.dto.ImagenSenderoDTO;
+import tandil_trails.dto.imagen.ImagenSenderoResponseDTO;
 import tandil_trails.dto.waypoint.WaypointResponseDTO;
 
 import java.util.List;
@@ -20,5 +20,5 @@ public record SenderoDetalleDTO(
         List<WaypointResponseDTO> waypoints,
         double promedioResenas,
         int cantidadResenas,
-        List<ImagenSenderoDTO> imagenes
+        List<ImagenSenderoResponseDTO> imagenes
 ) {}
