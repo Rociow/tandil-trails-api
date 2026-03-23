@@ -12,4 +12,5 @@ import tandil_trails.domain.Sendero;
 public interface SenderoRepository extends JpaRepository<Sendero, Long> {
     @Query(value = "SELECT ST_Length(ruta::geography) FROM senderos WHERE id = :id", nativeQuery = true)
     Double calcularLongitud(@Param("id") Long id);
+
 }

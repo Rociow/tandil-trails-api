@@ -23,4 +23,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleInvalidEnum(HttpMessageNotReadableException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Valor inválido en el cuerpo de la request");
     }
+
+    @ExceptionHandler(WaypointOrdenDuplicadoException.class)
+    public ResponseEntity<String> handleWaypointOrdenDuplicado(WaypointOrdenDuplicadoException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(WaypointNotFoundException.class)
+    public ResponseEntity<String> handleWaypointNotFound(WaypointNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }

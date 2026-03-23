@@ -1,6 +1,6 @@
 package tandil_trails.dto;
 
-public record WaypointDTO(
+public record WaypointResponseDTO(
         Long id,
         String nombre,
         String descripcion,

@@ -3,6 +3,7 @@ package tandil_trails.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -34,6 +35,7 @@ public class SecurityConfig {
                 // Definimos qué rutas son públicas y cuáles requieren autenticación
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll() // registro y login son públicos
+                        .requestMatchers(HttpMethod.GET, "/senderos/**").permitAll()
                         .anyRequest().authenticated()            // lo demas requiere JWT
                 )
 

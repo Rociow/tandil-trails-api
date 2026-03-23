@@ -7,6 +7,7 @@ import org.locationtech.jts.geom.PrecisionModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import tandil_trails.domain.Resena;
 import tandil_trails.domain.Sendero;
 import tandil_trails.dto.SenderoDetalleDTO;
 import tandil_trails.dto.SenderoRequestDTO;
@@ -20,6 +21,8 @@ public interface SenderoMapper {
 
     @Mapping(target = "estado", source = "estado.nombre")
     @Mapping(target = "coordenadas", source = "ruta", qualifiedByName = "lineStringToCoordenadas")
+    @Mapping(target = "promedioResenas", source = "resenas", qualifiedByName = "calcularPromedio")
+    @Mapping(target = "cantidadResenas", source = "resenas", qualifiedByName = "calcularCantidad")
     SenderoDetalleDTO toDetalleDTO(Sendero sendero);
 
     @Mapping(target = "estado", source = "estado.nombre")
@@ -51,5 +54,20 @@ public interface SenderoMapper {
                 .map(c -> new Coordinate(c.get(0), c.get(1)))
                 .toArray(Coordinate[]::new);
         return gf.createLineString(coords);
+    }
+
+    @Named("calcularPromedio")
+    default double calcularPromedio(List<Resena> resenas) {
+        if (resenas == null || resenas.isEmpty()) return 0.0;
+        return resenas.stream()
+                .mapToInt(Resena::getPuntuacion)
+                .average()
+                .orElse(0.0);
+    }
+
+    @Named("calcularCantidad")
+    default int calcularCantidad(List<Resena> resenas) {
+        if (resenas == null) return 0;
+        return resenas.size();
     }
 }

@@ -15,7 +15,7 @@ public record SenderoDetalleDTO(
         Dificultad dificultad,
         String estado,
         List<List<Double>> coordenadas,
-        List<WaypointDTO> waypoints,
+        List<WaypointResponseDTO> waypoints,
         double promedioResenas,
         int cantidadResenas,
         List<ImagenSenderoDTO> imagenes
