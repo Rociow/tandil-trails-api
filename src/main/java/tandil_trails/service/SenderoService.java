@@ -2,6 +2,8 @@ package tandil_trails.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tandil_trails.domain.EstadoSendero;
 import tandil_trails.domain.Sendero;
@@ -45,11 +47,9 @@ public class SenderoService {
         return senderoMapper.toDetalleDTO(sendero);
     }
 
-    public List<SenderoResumenDTO> listarTodos(){
-        List<Sendero> senderos = senderoRepository.findAll();
-        return senderos.stream()
-                .map(senderoMapper::toResumenDTO)
-                .toList();
+    public Page<SenderoResumenDTO> listarTodos(Pageable pageable) {
+        return senderoRepository.findAll(pageable)
+                .map(senderoMapper::toResumenDTO);
     }
 
     public SenderoDetalleDTO actualizar(Long id, SenderoRequestDTO senderoRequestDTO) {

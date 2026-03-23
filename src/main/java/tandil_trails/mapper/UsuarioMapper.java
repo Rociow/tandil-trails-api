@@ -12,6 +12,7 @@ public interface UsuarioMapper {
     UsuarioResponseDTO toDTO(Usuario usuario);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "username", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "rol", ignore = true)
     @Mapping(target = "createdAt", ignore = true)

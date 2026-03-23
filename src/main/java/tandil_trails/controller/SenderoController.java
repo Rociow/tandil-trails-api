@@ -2,6 +2,9 @@ package tandil_trails.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,8 +23,11 @@ public class SenderoController {
     private final SenderoService senderoService;
 
     @GetMapping
-    public ResponseEntity<List<SenderoResumenDTO>> listarTodos(){
-        return ResponseEntity.ok(senderoService.listarTodos());
+    public ResponseEntity<Page<SenderoResumenDTO>> listarTodos(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(senderoService.listarTodos(pageable));
     }
 
     @GetMapping("/{id}")
