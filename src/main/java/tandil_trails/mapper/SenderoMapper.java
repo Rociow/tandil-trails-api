@@ -16,7 +16,7 @@ import tandil_trails.dto.sendero.SenderoResumenDTO;
 import java.util.Arrays;
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {WaypointMapper.class, ImagenSenderoMapper.class})
+@Mapper(componentModel = "spring", uses = {WaypointMapper.class, ImagenSenderoMapper.class, EstadoSenderoMapper.class})
 public interface SenderoMapper {
 
     @Mapping(target = "estado", source = "estado.nombre")
@@ -25,7 +25,7 @@ public interface SenderoMapper {
     @Mapping(target = "cantidadResenas", source = "resenas", qualifiedByName = "calcularCantidad")
     SenderoDetalleDTO toDetalleDTO(Sendero sendero);
 
-    @Mapping(target = "estado", source = "estado.nombre")
+    @Mapping(target = "estado", source = "estado")
     SenderoResumenDTO toResumenDTO(Sendero sendero);
 
     @Mapping(target = "id", ignore = true)

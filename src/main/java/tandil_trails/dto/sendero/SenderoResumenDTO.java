@@ -4,6 +4,7 @@ package tandil_trails.dto.sendero;
 // completa ni los waypoints, solo los datos para mostrar una card o un marcador. Menos datos = respuesta más liviana.
 
 import tandil_trails.domain.Dificultad;
+import tandil_trails.dto.estadoSendero.EstadoSenderoResponseDTO;
 
 public record SenderoResumenDTO(
         Long id,
@@ -11,5 +12,5 @@ public record SenderoResumenDTO(
         String descripcion,
         double longitud,
         Dificultad dificultad,
-        String estado
+        EstadoSenderoResponseDTO estado
 ) {}
