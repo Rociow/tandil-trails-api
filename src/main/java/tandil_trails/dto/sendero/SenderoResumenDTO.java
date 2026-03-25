@@ -12,5 +12,8 @@ public record SenderoResumenDTO(
         String descripcion,
         double longitud,
         Dificultad dificultad,
-        EstadoSenderoResponseDTO estado
+        EstadoSenderoResponseDTO estado,
+        double latitud,
+        double lon,
+        String imagenUrl
 ) {}

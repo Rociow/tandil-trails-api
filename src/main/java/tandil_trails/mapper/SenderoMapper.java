@@ -7,6 +7,7 @@ import org.locationtech.jts.geom.PrecisionModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import tandil_trails.domain.ImagenSendero;
 import tandil_trails.domain.Resena;
 import tandil_trails.domain.Sendero;
 import tandil_trails.dto.sendero.SenderoDetalleDTO;
@@ -26,6 +27,9 @@ public interface SenderoMapper {
     SenderoDetalleDTO toDetalleDTO(Sendero sendero);
 
     @Mapping(target = "estado", source = "estado")
+    @Mapping(target = "latitud", source = "ruta", qualifiedByName = "extraerLatitud")
+    @Mapping(target = "lon", source = "ruta", qualifiedByName = "extraerLongitud")
+    @Mapping(target = "imagenUrl", source = "imagenes", qualifiedByName = "extraerPrimeraImagen")
     SenderoResumenDTO toResumenDTO(Sendero sendero);
 
     @Mapping(target = "id", ignore = true)
@@ -69,5 +73,23 @@ public interface SenderoMapper {
     default int calcularCantidad(List<Resena> resenas) {
         if (resenas == null) return 0;
         return resenas.size();
+    }
+
+    @Named("extraerLatitud")
+    default double extraerLatitud(LineString ruta) {
+        if (ruta == null || ruta.getNumPoints() == 0) return 0.0;
+        return ruta.getPointN(0).getY();
+    }
+
+    @Named("extraerLongitud")
+    default double extraerLongitud(LineString ruta) {
+        if (ruta == null || ruta.getNumPoints() == 0) return 0.0;
+        return ruta.getPointN(0).getX();
+    }
+
+    @Named("extraerPrimeraImagen")
+    default String extraerPrimeraImagen(List<ImagenSendero> imagenes) {
+        if (imagenes == null || imagenes.isEmpty()) return null;
+        return imagenes.get(0).getUrl(); // ajustá según tu entidad ImagenSendero
     }
 }
