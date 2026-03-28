@@ -6,7 +6,7 @@ import tandil_trails.domain.Usuario;
 import tandil_trails.dto.usuario.UsuarioRequestDTO;
 import tandil_trails.dto.usuario.UsuarioResponseDTO;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {SenderoMapper.class})
 public interface UsuarioMapper {
 
     UsuarioResponseDTO toDTO(Usuario usuario);
@@ -17,5 +17,7 @@ public interface UsuarioMapper {
     @Mapping(target = "rol", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "authorities", ignore = true)
+    @Mapping(target = "favoritos", ignore = true)
+    @Mapping(target = "visitados", ignore = true)
     Usuario toEntity(UsuarioRequestDTO dto);
 }

@@ -29,4 +29,28 @@ public class UsuarioController {
         usuarioService.eliminar();
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/favoritos/{senderoId}")
+    public ResponseEntity<Void> agregarFavorito(@PathVariable Long senderoId) {
+        usuarioService.agregarFavorito(senderoId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/favoritos/{senderoId}")
+    public ResponseEntity<Void> eliminarFavorito(@PathVariable Long senderoId) {
+        usuarioService.eliminarFavorito(senderoId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/visitados/{senderoId}")
+    public ResponseEntity<Void> agregarVisitado(@PathVariable Long senderoId) {
+        usuarioService.agregarVisitado(senderoId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/visitados/{senderoId}")
+    public ResponseEntity<Void> eliminarVisitado(@PathVariable Long senderoId) {
+        usuarioService.eliminarVisitado(senderoId);
+        return ResponseEntity.noContent().build();
+    }
 }

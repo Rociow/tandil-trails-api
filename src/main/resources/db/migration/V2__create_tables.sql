@@ -55,3 +55,20 @@ CREATE TABLE waypoints (
     ubicacion geometry(Point, 4326),
     FOREIGN KEY (sendero_id) REFERENCES senderos(id)
 );
+
+CREATE TABLE usuario_senderos_favoritos (
+    usuario_id BIGINT NOT NULL,
+    sendero_id BIGINT NOT NULL,
+    PRIMARY KEY (usuario_id, sendero_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY (sendero_id) REFERENCES senderos(id)
+);
+
+CREATE TABLE usuario_senderos_visitados (
+    usuario_id BIGINT NOT NULL,
+    sendero_id BIGINT NOT NULL,
+    fecha_visita TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (usuario_id, sendero_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY (sendero_id) REFERENCES senderos(id)
+);

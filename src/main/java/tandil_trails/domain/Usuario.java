@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,6 +42,22 @@ public class Usuario implements UserDetails {
     @Column(updatable = false)
     private LocalDateTime createdAt;
     private String avatarUrl;
+
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_senderos_favoritos",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "sendero_id")
+    )
+    private List<Sendero> favoritos = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_senderos_visitados",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "sendero_id")
+    )
+    private List<Sendero> visitados = new ArrayList<>();
 
 
     @Override
