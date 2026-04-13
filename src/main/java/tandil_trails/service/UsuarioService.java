@@ -95,4 +95,28 @@ public class UsuarioService {
         usuario.getVisitados().remove(sendero);
         usuarioRepository.save(usuario);
     }
+
+    public boolean esFavorito(Long senderoId) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new UsuarioNotFoundException(username));
+        for (Sendero sendero : usuario.getFavoritos()) {
+            if (sendero.getId().equals(senderoId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean esVisitado(Long senderoId) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new UsuarioNotFoundException(username));
+        for (Sendero sendero : usuario.getVisitados()) {
+            if (sendero.getId().equals(senderoId)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

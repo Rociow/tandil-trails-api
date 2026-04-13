@@ -53,4 +53,14 @@ public class UsuarioController {
         usuarioService.eliminarVisitado(senderoId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/favoritos/{senderoId}/existe")
+    public ResponseEntity<Boolean> esFavorito(@PathVariable Long senderoId) {
+        return ResponseEntity.ok(usuarioService.esFavorito(senderoId));
+    }
+
+    @GetMapping("/visitados/{senderoId}/existe")
+    public ResponseEntity<Boolean> esVisitado(@PathVariable Long senderoId) {
+        return ResponseEntity.ok(usuarioService.esVisitado(senderoId));
+    }
 }
