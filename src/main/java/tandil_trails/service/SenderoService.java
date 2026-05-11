@@ -80,4 +80,8 @@ public class SenderoService {
         senderoRepository.delete(sendero);
     }
 
+    public Page<SenderoResumenDTO> obtenerPorNombre(Pageable pageable, String nombre) {
+        return senderoRepository.findByNombreContainingIgnoreCase(nombre, pageable)
+                .map(senderoMapper::toResumenDTO);
+    }
 }

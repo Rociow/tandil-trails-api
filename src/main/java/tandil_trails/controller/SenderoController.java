@@ -35,6 +35,16 @@ public class SenderoController {
         return ResponseEntity.ok(senderoService.obtenerPorId(id));
     }
 
+    @GetMapping("/buscar")
+    public ResponseEntity<Page<SenderoResumenDTO>> obtenerPorNombre(
+            @RequestParam String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(senderoService.obtenerPorNombre(pageable, q));
+    }
+
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<SenderoDetalleDTO> crear(@RequestBody @Valid SenderoRequestDTO dto) {
