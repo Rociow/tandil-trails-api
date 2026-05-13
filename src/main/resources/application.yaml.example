@@ -4,8 +4,8 @@ spring:
 
   datasource:
     url: jdbc:postgresql://localhost:5433/tandil_trails
-    username: trails_user
-    password: trails_pass
+    username: TU_USUARIO_DB
+    password: TU_PASSWORD_DB
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -23,5 +23,8 @@ spring:
     baseline-on-migrate: false
 
 jwt:
-  secret: "dGFuZGlsdHJhaWxzc2VjcmV0a2V5cGFyYXByb2R1Y2Npb24xMjM0NTY3OA=="
+  secret: "TU_SECRET_BASE64_AQUI"
   expiration-ms: 86400000
+
+gemini:
+  api-key: TU_GEMINI_API_KEY_AQUI
