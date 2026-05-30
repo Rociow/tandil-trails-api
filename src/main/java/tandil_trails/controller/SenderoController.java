@@ -15,6 +15,7 @@ import tandil_trails.dto.sendero.SenderoResumenDTO;
 import tandil_trails.service.SenderoService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/senderos")
@@ -62,6 +63,28 @@ public class SenderoController {
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         senderoService.eliminar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/buscar-ia")
+    public ResponseEntity<?> buscarConIA(
+            @RequestParam String query,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        if (query.isBlank()) {
+            return ResponseEntity.badRequest().body("Escribí qué tipo de sendero estás buscando");
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<SenderoResumenDTO> resultados = senderoService.busquedaAvanzada(pageable, query);
+
+        if (resultados.isEmpty()) {
+            return ResponseEntity.ok(Map.of(
+                    "mensaje", "No encontramos senderos que coincidan con tu búsqueda",
+                    "resultados", List.of()
+            ));
+        }
+        return ResponseEntity.ok(resultados);
     }
 
 }

@@ -14,7 +14,7 @@ import java.util.Map;
 // Este servicio se encargaría de recibir los parámetros de búsqueda, construir la consulta adecuada para la IA y procesar los resultados.
 @Service
 public class IASearchService {
-    @Value("${gemini.api-key}")
+    @Value("${groq.api-key}")
     private String apiKey;
     private final RestClient restClient;
     private final ObjectMapper objectMapper;
@@ -48,40 +48,36 @@ public class IASearchService {
     }
 
     // Aquí se implementaría la lógica para enviar la consulta a la IA y recibir los filtros estructurados.
+    @SuppressWarnings("unchecked")
     public SearchFilterDTO extractFilters(String userQuery) {
-        String prompt = buildPrompt(userQuery);
-
-        // 1. Armamos el body que espera Gemini
         Map<String, Object> body = Map.of(
-                "contents", List.of(
-                        Map.of("parts", List.of(
-                                Map.of("text", prompt)
-                        ))
+                "model", "llama-3.1-8b-instant",
+                "messages", List.of(
+                        Map.of("role", "user", "content", buildPrompt(userQuery))
                 )
         );
 
         try {
-            // 2. Hacemos la llamada POST a la API
             Map<String, Object> response = restClient.post()
-                    .uri("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + apiKey) // a dónde llamamos
-                    .contentType(MediaType.APPLICATION_JSON) // le avisamos que mandamos json
-                    .body(body)// le mandamos el body que armamos
-                    .retrieve()// hacemos la llamada
-                    .body(new ParameterizedTypeReference<>() { // le decimos que esperamos un Map<String, Object> como respuesta
-                    });
+                    .uri("https://api.groq.com/openai/v1/chat/completions")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Authorization", "Bearer " + apiKey)
+                    .body(body)
+                    .retrieve()
+                    .body(new ParameterizedTypeReference<>() {});
 
-            // 3. Navegamos la respuesta hasta el texto
-            List<Map<String, Object>> candidates = (List<Map<String, Object>>) response.get("candidates");
-            Map<String, Object> content = (Map<String, Object>) candidates.get(0).get("content");
-            List<Map<String, Object>> parts = (List<Map<String, Object>>) content.get("parts");
-            String jsonText = (String) parts.get(0).get("text");
+            List<Map<String, Object>> choices = (List<Map<String, Object>>) response.get("choices");
+            Map<String, Object> message = (Map<String, Object>) choices.get(0).get("message");
+            String jsonText = (String) message.get("content");
 
-            // 4. Parseamos el JSON a nuestro DTO
-            return objectMapper.readValue(jsonText, SearchFilterDTO.class);
+            SearchFilterDTO filtros = objectMapper.readValue(jsonText, SearchFilterDTO.class);
+
+            return filtros;
 
         } catch (Exception e) {
-            // 5. Si algo falla, devolvemos filtros vacíos
+            e.printStackTrace();
             return new SearchFilterDTO(null, null, null, null, List.of());
         }
     }
+
 }

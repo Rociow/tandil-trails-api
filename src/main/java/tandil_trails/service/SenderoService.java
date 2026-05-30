@@ -4,9 +4,11 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import tandil_trails.domain.EstadoSendero;
 import tandil_trails.domain.Sendero;
+import tandil_trails.dto.SearchFilterDTO;
 import tandil_trails.dto.sendero.SenderoDetalleDTO;
 import tandil_trails.dto.sendero.SenderoRequestDTO;
 import tandil_trails.dto.sendero.SenderoResumenDTO;
@@ -15,6 +17,7 @@ import tandil_trails.exception.SenderoNotFoundException;
 import tandil_trails.mapper.SenderoMapper;
 import tandil_trails.repository.EstadoSenderoRepository;
 import tandil_trails.repository.SenderoRepository;
+import tandil_trails.specification.SenderoSpecification;
 
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class SenderoService {
     private final SenderoRepository senderoRepository;
     private final EstadoSenderoRepository estadoSenderoRepository;
     private final SenderoMapper senderoMapper;
+    private final IASearchService iaSearchService;
 
     @Transactional
     public SenderoDetalleDTO crear(SenderoRequestDTO senderoRequestDTO){
@@ -83,5 +87,18 @@ public class SenderoService {
     public Page<SenderoResumenDTO> obtenerPorNombre(Pageable pageable, String nombre) {
         return senderoRepository.findByNombreContainingIgnoreCase(nombre, pageable)
                 .map(senderoMapper::toResumenDTO);
+    }
+
+    public Page<SenderoResumenDTO> busquedaAvanzada(Pageable pageable, String consultaUsuario) {
+        SearchFilterDTO filtros = iaSearchService.extractFilters(consultaUsuario);
+
+        Specification<Sendero> spec = Specification.where(SenderoSpecification.soloHabilitados())
+                .and(SenderoSpecification.conDificultad(filtros.dificultad()))
+                .and(SenderoSpecification.conLongitudMinima(filtros.longitudMin()))
+                .and(SenderoSpecification.conLongitudMaxima(filtros.longitudMax()))
+                .and(SenderoSpecification.conKeywords(filtros.keywords()));
+
+        Page<Sendero> senderos = senderoRepository.findAll(spec, pageable);
+        return senderos.map(senderoMapper::toResumenDTO);
     }
 }
